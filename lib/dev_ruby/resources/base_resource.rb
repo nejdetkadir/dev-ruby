@@ -38,6 +38,12 @@ module DevRuby
       def error_parser(response)
         OpenStruct.new(status: response.status, body: response.body)
       end
+
+      def to_default_pagination_params(params)
+        params[:page] ||= 1
+        params[:per_page] ||= 20
+        params
+      end
     end
   end
 end

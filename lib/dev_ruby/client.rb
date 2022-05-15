@@ -15,6 +15,10 @@ module DevRuby
       @stubs = stubs
     end
 
+    def articles
+      DevRuby::Resources::ArticlesResource.new(self)
+    end
+
     def connection
       @connection ||= Faraday.new(BASE_URL) do |conn|
         conn.headers[API_KEY] = api_key

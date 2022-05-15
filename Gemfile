@@ -16,3 +16,6 @@ gem 'faraday', '~> 2.2'
 
 # Common monads for Ruby [https://github.com/dry-rb/dry-monads]
 gem 'dry-monads', '~> 1.4'
+
+# Pretty print Ruby objects with proper indentation and colors [https://github.com/awesome-print/awesome_print]
+gem 'awesome_print'
