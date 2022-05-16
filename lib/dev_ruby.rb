@@ -18,7 +18,9 @@ module DevRuby
   require_relative 'dev_ruby/collection'
   require_relative 'dev_ruby/resources/base_resource'
   require_relative 'dev_ruby/resources/articles_resource'
+  require_relative 'dev_ruby/resources/comments_resource'
   require_relative 'dev_ruby/objects/base_object'
   require_relative 'dev_ruby/objects/article'
   require_relative 'dev_ruby/objects/video_article'
+  require_relative 'dev_ruby/objects/comment'
 end

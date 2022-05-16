@@ -4,8 +4,6 @@
 module DevRuby
   module Resources
     class ArticlesResource < BaseResource
-      attr_reader :client
-
       def published(**params)
         params = to_default_pagination_params(params)
 
