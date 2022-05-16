@@ -33,6 +33,10 @@ module DevRuby
       DevRuby::Resources::ListingsResource.new(self)
     end
 
+    def organizations
+      DevRuby::Resources::OrganizationsResource.new(self)
+    end
+
     # rubocop:disable Layout/LineLength
     def connection
       @connection ||= Faraday.new(BASE_URL) do |conn|
