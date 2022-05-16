@@ -19,3 +19,6 @@ gem 'dry-monads', '~> 1.4'
 
 # Pretty print Ruby objects with proper indentation and colors [https://github.com/awesome-print/awesome_print]
 gem 'awesome_print'
+
+# A mixin to add configuration functionality to your classes [https://github.com/dry-rb/dry-configurable]
+gem 'dry-configurable', '~> 0.15.0'

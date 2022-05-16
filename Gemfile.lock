@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dev_ruby (0.1.0)
+    dev_ruby (0.1.2)
 
 GEM
   remote: https://rubygems.org/
@@ -9,6 +9,9 @@ GEM
     ast (2.4.2)
     awesome_print (1.9.2)
     concurrent-ruby (1.1.10)
+    dry-configurable (0.15.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.6)
     dry-core (0.7.1)
       concurrent-ruby (~> 1.0)
     dry-monads (1.4.0)
@@ -47,6 +50,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   dev_ruby!
+  dry-configurable (~> 0.15.0)
   dry-monads (~> 1.4)
   faraday (~> 2.2)
   minitest (~> 5.0)

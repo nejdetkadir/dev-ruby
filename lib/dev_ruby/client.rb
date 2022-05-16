@@ -3,29 +3,30 @@
 module DevRuby
   class Client
     BASE_URL = 'https://dev.to/api'
-    API_KEY = 'api-key'
+    AUTHORIZATION_KEY = 'api-key'
 
     attr_reader :api_key, :adapter
 
     def initialize(api_key:, adapter: Faraday.default_adapter, stubs: nil)
       @api_key = api_key
       @adapter = adapter
-
-      # Test stubs for requests
-      @stubs = stubs
+      @stubs = stubs # Test stubs for requests
     end
 
     def articles
       DevRuby::Resources::ArticlesResource.new(self)
     end
 
+    # rubocop:disable Layout/LineLength
     def connection
       @connection ||= Faraday.new(BASE_URL) do |conn|
-        conn.headers[API_KEY] = api_key
+        conn.headers[AUTHORIZATION_KEY] = api_key
         conn.request :json
         conn.response :json, content_type: 'application/json'
+        conn.response :logger, DevRuby.logger, body: true, bodies: { request: true, response: true } if DevRuby.log_api_bodies
         conn.adapter adapter, @stubs
       end
     end
+    # rubocop:enable Layout/LineLength
   end
 end

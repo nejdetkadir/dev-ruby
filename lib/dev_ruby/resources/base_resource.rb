@@ -41,7 +41,7 @@ module DevRuby
 
       def to_default_pagination_params(params)
         params[:page] ||= 1
-        params[:per_page] ||= 20
+        params[:per_page] ||= DevRuby.per_page
         params
       end
     end

@@ -22,6 +22,15 @@ Or install it yourself as:
 
     $ gem install dev_ruby
 
+## Configuration
+```ruby
+DevRuby.configure do |config|
+  config.logger = ::Logger.new($stdout).tap { |d| d.level = Logger::DEBUG }
+  config.log_api_bodies = true
+  config.per_page = 20
+end
+```
+
 ## Usage
 To access the API, you'll need to create a DevRuby::Client and pass in your API key. You can find your API key at [https://developers.forem.com/api](https://developers.forem.com/api)
 
