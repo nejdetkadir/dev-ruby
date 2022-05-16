@@ -2,7 +2,7 @@
 ![test](https://github.com/nejdetkadir/dev-ruby/actions/workflows/test.yml/badge.svg?branch=main)
 ![rubocop](https://github.com/nejdetkadir/dev-ruby/actions/workflows/rubocop.yml/badge.svg?branch=main)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
-![Ruby Version](https://img.shields.io/badge/ruby_version->=_2.6.0-blue.svg)
+![Ruby Version](https://img.shields.io/badge/ruby_version->=_2.7.0-blue.svg)
 
 # DevRuby
 Ruby bindings for DEV API
