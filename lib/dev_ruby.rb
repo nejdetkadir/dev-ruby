@@ -24,6 +24,7 @@ module DevRuby
   require_relative 'dev_ruby/resources/listings_resource'
   require_relative 'dev_ruby/resources/organizations_resource'
   require_relative 'dev_ruby/resources/podcast_episodes_resource'
+  require_relative 'dev_ruby/resources/readinglists_resource'
   require_relative 'dev_ruby/objects/base_object'
   require_relative 'dev_ruby/objects/article'
   require_relative 'dev_ruby/objects/video_article'
