@@ -20,4 +20,5 @@ module DevRuby
   require_relative 'dev_ruby/resources/articles_resource'
   require_relative 'dev_ruby/objects/base_object'
   require_relative 'dev_ruby/objects/article'
+  require_relative 'dev_ruby/objects/video_article'
 end

@@ -86,13 +86,17 @@ module DevRuby
         end
       end
 
-      def me
+      def me(**params)
+        params = to_default_pagination_params(params)
+
         response = get_request('articles/me')
 
         if Helpers.expected_response?(response, 200)
-          article = DevRuby::Objects::Article.new(response.body)
+          collection = Collection.from_response(response: response,
+                                                type: DevRuby::Objects::Article,
+                                                params: params)
 
-          Success(article)
+          Success(collection)
         else
           Failure(error_parser(response))
         end
@@ -153,7 +157,7 @@ module DevRuby
 
         if Helpers.expected_response?(response, 200)
           collection = Collection.from_response(response: response,
-                                                type: DevRuby::Objects::Article,
+                                                type: DevRuby::Objects::VideoArticle,
                                                 params: params)
 
           Success(collection)
