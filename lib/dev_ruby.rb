@@ -23,4 +23,5 @@ module DevRuby
   require_relative 'dev_ruby/objects/article'
   require_relative 'dev_ruby/objects/video_article'
   require_relative 'dev_ruby/objects/comment'
+  require_relative 'dev_ruby/objects/error'
 end

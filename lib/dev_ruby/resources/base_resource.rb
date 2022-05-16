@@ -36,7 +36,7 @@ module DevRuby
       end
 
       def error_parser(response)
-        OpenStruct.new(status: response.status, body: response.body)
+        DevRuby::Objects::Error.new(response.body)
       end
 
       def to_default_pagination_params(params)
