@@ -1,0 +1,15 @@
+[
+  {
+    "type_of": "video_article",
+    "id": 273532,
+    "path": "/devteam/basecs-depth-first-search-implementing-4kkl",
+    "cloudinary_video_url": "https://res.cloudinary.com/....png",
+    "title": "BaseCS: Depth First Search Implementing",
+    "user_id": 2882,
+    "video_duration_in_minutes": "11:47",
+    "video_source_url": "https://dw71fyauz7yz9.cloudfront.net/123/123.m3u8",
+    "user": {
+      "name": "Vaidehi Joshi"
+    }
+  }
+]

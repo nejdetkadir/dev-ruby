@@ -21,3 +21,13 @@ Metrics/MethodLength:
   Enabled: true
   CountComments: false
   Max: 20
+
+Metrics/AbcSize:
+  Enabled: true
+  Exclude:
+    - 'test/**/*.rb'
+
+Metrics/ClassLength:
+  Enabled: true
+  Exclude:
+    - 'test/**/*.rb'
