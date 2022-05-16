@@ -21,6 +21,10 @@ module DevRuby
       DevRuby::Resources::CommentsResource.new(self)
     end
 
+    def follows
+      DevRuby::Resources::FollowsResource.new(self)
+    end
+
     # rubocop:disable Layout/LineLength
     def connection
       @connection ||= Faraday.new(BASE_URL) do |conn|
