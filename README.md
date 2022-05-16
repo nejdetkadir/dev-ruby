@@ -11,7 +11,7 @@ Ruby bindings for DEV API
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'dev_ruby'
+gem 'dev_ruby', github: 'nejdetkadir/dev-ruby', branch: 'main'
 ```
 
 And then execute:
@@ -42,7 +42,7 @@ The client then gives you access to each of the resources.
 ## Resources
 The gem maps as closely as we can to the DEV API so you can easily convert API examples to gem code.
 
-Responses are returning as objects like DevRuby::Article with using [dry-monads](https://github.com/dry-rb/dry-monads) gem for easly error handling. Having types like DevRuby::Article is handy for understanding what type of object you're working with. They're built using OpenStruct so you can easily access data in a Ruby-ish way.
+Responses are returning as objects like `DevRuby::Objects::Article` with using [dry-monads](https://github.com/dry-rb/dry-monads) gem for easly error handling. Having types like `DevRuby::Objects::Article` is handy for understanding what type of object you're working with. They're built using OpenStruct so you can easily access data in a Ruby-ish way.
 
 ```ruby
 # Sample request with dry-monads
@@ -70,28 +70,210 @@ operation.value! # Returns the article if successful or return error if not suc
 ```
 
 ## Pagination
-
 Some endpoints return pages of results. The result object will have a data key to access the results, as well as metadata like next_page and prev_page for retrieving the next and previous pages. You may also specify the
 
 ```ruby
-results = client.articles.published.value! # per_page is optional, defaults to 20.
-#=> DevRuby::Collection[#<DevRuby::Article>, #<DevRuby::Article>]
+collection = client.articles.published.value!
+#=> DevRuby::Collection
 
-results.data
-#=> [#<DevRuby::Article>, #<DevRuby::Article>]
+collection.data
+#=> [#<DevRuby::Objects::Article>, #<DevRuby::Objects::Article>]
 
-results.data.count
+collection.data.count
 #=> 3
 
-results.next_page
+collection.next_page
 #=> "3"
 
-results.prev_page
+collection.prev_page
 #=> "1"
 
 # Retrieve the next page
-client.articles.published(per_page: 100, page: results.next_page)
-#=> DevRuby::Collection[#<DevRuby::Article>, #<DevRuby::Article>]
+client.articles.published(per_page: 100, page: collection.next_page)
+#=> DevRuby::Collection
+```
+
+## Articles
+```ruby
+# This endpoint allows the client to retrieve a list of articles.
+# By default it will return featured, published articles ordered by descending popularity.
+collection = client.articles.published.value! # per_page is optional, defaults to 20.
+#=> DevRuby::Collection
+
+# This endpoint allows the client to create a new article.
+article = client.articles.create(title: 'Hello, World!',
+                                  published: true,
+                                  body_markdown: 'Hello DEV, this is my first post',
+                                  tags: %w[discuss help],
+                                  series: 'Hello series').value!
+#=> DevRuby::Objects::Article
+
+# This endpoint allows the client to retrieve a list of articles. ordered by descending publish date.
+collection = client.articles.latest_published.value!
+#=> DevRuby::Collection
+
+# This endpoint allows the client to retrieve a single published article given its id.
+article = client.articles.find('123456').value!
+#=> DevRuby::Objects::Article
+
+# This endpoint allows the client to update an existing article.
+article = client.articles.update(id: '123456',
+                                 title: 'Hello, World!').value!
+#=> DevRuby::Objects::Article
+
+# This endpoint allows the client to retrieve a single published article given its path.
+article = client.articles.find_by_path(username: 'nejdetkadir', slug: 'hello-world').value!
+#=> DevRuby::Objects::Article
+
+# This endpoint allows the client to retrieve a list of published articles on behalf of an authenticated user.
+# Published articles will be in reverse chronological publication order.
+collection = client.articles.me.value!
+#=> DevRuby::Collection
+
+# This endpoint allows the client to retrieve a list of published articles on behalf of an authenticated user.
+# Published articles will be in reverse chronological publication order
+collection = client.articles.me_published.value!
+#=> DevRuby::Collection
+
+# This endpoint allows the client to retrieve a list of unpublished articles on behalf of an authenticated user.
+# Unpublished articles will be in reverse chronological creation order.
+collection = client.articles.me_unpublished.value!
+#=> DevRuby::Collection
+
+# This endpoint allows the client to retrieve a list of all articles on behalf of an authenticated user.
+# It will return both published and unpublished articles with pagination.
+# Unpublished articles will be at the top of the list in reverse chronological creation order. Published articles will follow in reverse chronological publication order
+collection = client.articles.me_all.value!
+#=> DevRuby::Collection
+
+# This endpoint allows the client to retrieve a list of articles that are uploaded with a video.
+# It will only return published video articles ordered by descending popularity.
+collection = client.articles.videos.value!
+#=> DevRuby::Collection
+```
+
+## Comments
+```ruby
+# This endpoint allows the client to retrieve all comments belonging to an article or podcast episode as threaded conversations.
+# It will return the all top level comments with their nested comments as threads. See the format specification for further details.
+collection = client.comments.all.value!
+#=> DevRuby::Collection
+
+# This endpoint allows the client to retrieve a comment as well as his descendants comments.
+# It will return the required comment (the root) with its nested descendants as a thread.
+# See the format specification for further details.
+comment = client.comments.find('123456').value!
+#=> DevRuby::Objects::Comment
+```
+
+## Follows
+```ruby
+# This endpoint allows the client to retrieve a list of the tags they follow.
+collection = client.follows.followed_tags.value!
+#=> DevRuby::Collection
+```
+
+## Followers
+```ruby
+# This endpoint allows the client to retrieve a list of the followers they have.
+collection = client.followers.all.value!
+#=> DevRuby::Collection
+```
+
+## Listings
+```ruby
+# This endpoint allows the client to retrieve a list of listings.
+# By default it will return published listings ordered by descending freshness.
+collection = client.listings.published.value!
+#=> DevRuby::Collection
+
+# This endpoint allows the client to create a new listing.
+# The user creating the listing or the organization on which behalf the user is creating for need to have enough credits for this operation to be successful. The server will prioritize the organization's credits over the user's credits.
+listing = client.listings.create(title: 'ACME Conference',
+                                 body_markdown: 'Awesome conference',
+                                 category: 'cfp',
+                                 tags: %w[events]).value!
+#=> DevRuby::Objects::Listing
+
+# This endpoint allows the client to retrieve a list of listings belonging to the specified category.
+# By default it will return published listings ordered by descending freshness.
+collection = client.listings.published_by_category(category: 'cfp').value!
+#=> DevRuby::Collection
+
+# This endpoint allows the client to retrieve a single listing given its id.
+# An unpublished listing is only accessible if authentication is supplied and it belongs to the authenticated user.
+listing = client.listings.find('123456').value!
+#=> DevRuby::Objects::Listing
+
+# This endpoint allows the client to update an existing listing.
+article = client.listings.update(id: '123456', action: 'bump').value!
+#=> DevRuby::Objects::Listing
+```
+
+## Organizations
+```ruby
+# This endpoint allows the client to retrieve a single organization by their username.
+organization = client.organizations.find_by_username('nejdetkadir').value!
+#=> DevRuby::Objects::Organization
+
+# This endpoint allows the client to retrieve a list of users belonging to the organization
+collection = client.organizations.all_users_by_username(username: 'nejdetkadir').value!
+#=> DevRuby::Collection
+
+# This endpoint allows the client to retrieve a list of listings belonging to the organization
+collection = client.organizations.all_listings_by_username(username: 'nejdetkadir').value!
+#=> DevRuby::Collection
+
+# This endpoint allows the client to retrieve a list of Articles belonging to the organization 
+collection = client.organizations.all_articles_by_username(username: 'nejdetkadir').value!
+#=> DevRuby::Collection
+```
+
+## Podcast Episodes
+```ruby
+# This endpoint allows the client to retrieve a list of podcast episodes.
+collection = client.podcast_episodes.published.value!
+#=> DevRuby::Collection
+```
+
+## Readinglists
+```ruby
+# This endpoint allows the client to retrieve a list of readinglist reactions along with the related article for the authenticated user.
+# Reading list will be in reverse chronological order base on the creation of the reaction.
+collection = client.readinglists.all.value!
+#=> DevRuby::Collection
+```
+
+## Tags
+```ruby
+# This endpoint allows the client to retrieve a list of tags that can be used to tag articles.
+# It will return tags ordered by popularity.
+collection = client.tags.all.value!
+#=> DevRuby::Collection
+
+# This endpoint allows the client to retrieve a list of the tags they follow.
+collection = client.tags.followed_tags.value!
+#=> DevRuby::Collection
+```
+
+## Users
+```ruby
+# This endpoint allows the client to retrieve a list of published articles on behalf of an authenticated user.
+user = client.users.me.value!
+#=> DevRuby::Objects::User
+
+# This endpoint allows the client to retrieve a single user, either by id or by the user's username
+user = client.users.find('123456').value!
+#=> DevRuby::Objects::User
+
+invitation = client.users.invite_user(email: 'user@example.com', name: 'string').value!
+#=> true
+```
+
+## Profile Images
+```ruby
+profile_image = client.profile_images.find_by_username('nejdetkadir').value!
+#=> DevRuby::Objects::ProfileImage
 ```
 
 ## Development
