@@ -25,6 +25,10 @@ module DevRuby
       DevRuby::Resources::FollowsResource.new(self)
     end
 
+    def followers
+      DevRuby::Resources::FollowersResource.new(self)
+    end
+
     # rubocop:disable Layout/LineLength
     def connection
       @connection ||= Faraday.new(BASE_URL) do |conn|

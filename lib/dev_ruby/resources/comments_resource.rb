@@ -3,7 +3,7 @@
 module DevRuby
   module Resources
     class CommentsResource < BaseResource
-      def comments(**params)
+      def all(**params)
         params = to_default_pagination_params(params)
 
         response = get_request('comments', params: params)

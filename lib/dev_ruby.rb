@@ -20,10 +20,12 @@ module DevRuby
   require_relative 'dev_ruby/resources/articles_resource'
   require_relative 'dev_ruby/resources/comments_resource'
   require_relative 'dev_ruby/resources/follows_resource'
+  require_relative 'dev_ruby/resources/followers_resource'
   require_relative 'dev_ruby/objects/base_object'
   require_relative 'dev_ruby/objects/article'
   require_relative 'dev_ruby/objects/video_article'
   require_relative 'dev_ruby/objects/comment'
   require_relative 'dev_ruby/objects/error'
   require_relative 'dev_ruby/objects/tag'
+  require_relative 'dev_ruby/objects/follower'
 end
