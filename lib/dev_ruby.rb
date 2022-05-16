@@ -27,6 +27,7 @@ module DevRuby
   require_relative 'dev_ruby/resources/readinglists_resource'
   require_relative 'dev_ruby/resources/users_resource'
   require_relative 'dev_ruby/resources/tags_resource'
+  require_relative 'dev_ruby/resources/profile_images_resource'
   require_relative 'dev_ruby/objects/base_object'
   require_relative 'dev_ruby/objects/article'
   require_relative 'dev_ruby/objects/video_article'
@@ -38,4 +39,5 @@ module DevRuby
   require_relative 'dev_ruby/objects/organization'
   require_relative 'dev_ruby/objects/user'
   require_relative 'dev_ruby/objects/podcast_episode'
+  require_relative 'dev_ruby/objects/profile_image'
 end
