@@ -22,3 +22,6 @@ gem 'awesome_print'
 
 # A mixin to add configuration functionality to your classes [https://github.com/dry-rb/dry-configurable]
 gem 'dry-configurable', '~> 0.15.0'
+
+# Mocking and stubbing library [http://gofreerange.com/mocha/docs]
+gem 'mocha'

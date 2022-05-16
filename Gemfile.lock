@@ -22,6 +22,7 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (2.0.2)
     minitest (5.15.0)
+    mocha (1.14.0)
     parallel (1.22.1)
     parser (3.1.2.0)
       ast (~> 2.4.1)
@@ -54,6 +55,7 @@ DEPENDENCIES
   dry-monads (~> 1.4)
   faraday (~> 2.2)
   minitest (~> 5.0)
+  mocha
   rake (~> 13.0)
   rubocop (~> 1.21)
 
