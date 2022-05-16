@@ -23,6 +23,7 @@ module DevRuby
   require_relative 'dev_ruby/resources/followers_resource'
   require_relative 'dev_ruby/resources/listings_resource'
   require_relative 'dev_ruby/resources/organizations_resource'
+  require_relative 'dev_ruby/resources/podcast_episodes_resource'
   require_relative 'dev_ruby/objects/base_object'
   require_relative 'dev_ruby/objects/article'
   require_relative 'dev_ruby/objects/video_article'
@@ -33,4 +34,5 @@ module DevRuby
   require_relative 'dev_ruby/objects/listing'
   require_relative 'dev_ruby/objects/organization'
   require_relative 'dev_ruby/objects/user'
+  require_relative 'dev_ruby/objects/podcast_episode'
 end

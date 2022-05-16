@@ -37,6 +37,10 @@ module DevRuby
       DevRuby::Resources::OrganizationsResource.new(self)
     end
 
+    def podcast_episodes
+      DevRuby::Resources::PodcastEpisodesResource.new(self)
+    end
+
     # rubocop:disable Layout/LineLength
     def connection
       @connection ||= Faraday.new(BASE_URL) do |conn|
