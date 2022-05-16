@@ -49,6 +49,10 @@ module DevRuby
       DevRuby::Resources::TagsResource.new(self)
     end
 
+    def users
+      DevRuby::Resources::UsersResource.new(self)
+    end
+
     # rubocop:disable Layout/LineLength
     def connection
       @connection ||= Faraday.new(BASE_URL) do |conn|
