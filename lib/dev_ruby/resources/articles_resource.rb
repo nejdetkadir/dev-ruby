@@ -60,7 +60,7 @@ module DevRuby
         end
       end
 
-      def update(id, **body)
+      def update(id:, **body)
         response = put_request("articles/#{id}", body: { article: body })
 
         if Helpers.expected_response?(response, 200)
